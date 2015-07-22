@@ -135,10 +135,10 @@ bail:
 }
 
 extern "C" { // we don't want name wrangling
-int compat_CreateJavaVM(JavaVM *vm, JNIEnv *env, char *apk_filename);
+int compat_CreateJavaVM(JavaVM **vm, JNIEnv **env, char *apk_filename);
 }
 
-int compat_CreateJavaVM(JavaVM *vm, JNIEnv *env, char *apk_filename)
+int compat_CreateJavaVM(JavaVM **vm, JNIEnv **env, char *apk_filename)
 {
     struct JavaVMInitArgs vm_args;
     struct JavaVMOption *options;
@@ -154,12 +154,10 @@ int compat_CreateJavaVM(JavaVM *vm, JNIEnv *env, char *apk_filename)
     vm_args.options = options;
     vm_args.nOptions = 1;
     vm_args.ignoreUnrecognized = JNI_FALSE; 
-       
-    if(JNI_CreateJavaVM(&vm, &env, &vm_args) < 0) {
+    if(JNI_CreateJavaVM(vm, env, &vm_args) < 0) {
         printf("ERROR: JNI_CreateJavaVM failed.\n");
         return 0; // failed
     }
-
     return 1; // success
 }
 

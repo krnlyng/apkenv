@@ -352,12 +352,16 @@ system_init(int gles_version)
 
 int init_dvm(struct GlobalState *global, void *libdvm_handle)
 {
-    int (*CreateJavaVM)(JavaVM *vm, JNIEnv *env, const char *apk_filename);
+    struct _JavaVM *jvm;
+    struct _JNIEnv *jnienv;
+    int (*CreateJavaVM)(struct _JavaVM **vm, struct _JNIEnv **env, const char *apk_filename);
     CreateJavaVM = apkenv_android_dlsym(libdvm_handle, "compat_CreateJavaVM");
     if(NULL == CreateJavaVM) {
         return 0; // failed
     }
-    if(0 == CreateJavaVM(&(global->vm), &(global->env), global->apk_filename)) return 0; // failed
+    if(0 == CreateJavaVM(&jvm, &jnienv, global->apk_filename)) return 0; // failed
+    global->vm = jvm->functions;
+    global->env = jnienv->functions;
     return 1; // success
 }
 
