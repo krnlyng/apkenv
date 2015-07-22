@@ -102,4 +102,4 @@ int apkenv_my_pthread_rwlock_timedwrlock(pthread_rwlock_t *__rwlock,
                                          __const struct timespec *abs_timeout);
 int apkenv_my_pthread_rwlock_unlock(pthread_rwlock_t *__rwlock);
 int apkenv_my_pthread_setname_np(pthread_t thid, const char *thname);
-
+pid_t my___pthread_gettid(pthread_t thid);

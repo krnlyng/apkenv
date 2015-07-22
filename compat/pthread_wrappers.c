@@ -840,6 +840,12 @@ int apkenv_my_pthread_setname_np(pthread_t thid, const char *thname)
     return 0;
 }
 
+pid_t my___pthread_gettid(pthread_t thid)
+{
+    fprintf(stderr, "XXX: __pthread_gettid\n");
+    return 0;
+}
+
 #if 0
 /**
  * This will take care of doing the right thing for mutexes that are not
