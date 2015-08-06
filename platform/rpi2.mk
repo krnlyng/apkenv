@@ -11,9 +11,9 @@ endif
 
 NO_THUMB := 1
 
-BIONIC_LIBS := $(wildcard libs/harmattan/*.so)
+BIONIC_LIBS := $(wildcard libs/rpi2/*.so)
 
-CFLAGS += -DAPKENV_LOCAL_BIONIC_PATH=\"./libs/harmattan/\"
+CFLAGS += -DAPKENV_LOCAL_BIONIC_PATH=\"./libs/rpi2/\"
 
 # only install bionic libs if we actually have them
 ifneq ($(BIONIC_LIBS),)
